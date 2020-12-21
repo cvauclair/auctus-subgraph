@@ -1,0 +1,92 @@
+specVersion: 0.0.2
+description: Auctus is a decentralized options protocol.
+repository: https://github.com/cvauclair/auctus-subgraph/
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: ACOFactory
+    network: mainnet
+    source:
+      address: '0x176b98ab38d1aE8fF3F30bF07f9B93E26F559C17'
+      abi: ACOFactory
+      startBlock: 10104891
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      file: ./src/mappings/ACOFactory.ts
+      entities:
+        - ACOFactory
+        - ACOToken
+      abis:
+        - name: ACOFactory
+          file: ./abis/ACOFactory.json
+        - name: ACOToken
+          file: ./abis/ACOToken.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: NewAcoToken(indexed address,indexed address,indexed bool,uint256,uint256,address,address)
+          handler: handleNewAcoToken
+  - kind: ethereum/contract
+    name: Exchange
+    network: mainnet
+    source:
+      address: '0x61935cbdd02287b511119ddb11aeb42f1593b7ef'
+      abi: Exchange
+      startBlock: 10104891
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      file: ./src/mappings/Exchange.ts
+      entities:
+        - Trade
+        - ACOToken
+        - ACOFactory
+      abis:
+        - name: Exchange
+          file: ./abis/Exchange.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Fill(indexed address,indexed address,bytes,bytes,bytes,bytes,indexed bytes32,address,address,uint256,uint256,uint256,uint256,uint256)
+          handler: handleFill
+templates:
+  - kind: ethereum/contract
+    name: ACOToken
+    network: mainnet
+    source:
+      abi: ACOToken
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      file: ./src/mappings/ACOToken.ts
+      entities:
+        - ACOToken
+      abis:
+        - name: ACOToken
+          file: ./abis/ACOToken.json
+      # eventHandlers:
+        # - event: Transfer(indexed address,indexed address,uint256)
+        #   handler: handleTransfer
+  - kind: ethereum/contract
+    name: ERC20
+    network: mainnet
+    source:
+      abi: ERC20
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      file: ./src/mappings/ERC20.ts
+      entities:
+        - Asset
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      # eventHandlers:
+        # - event: Transfer(indexed address,indexed address,uint256)
+        #   handler: handleTransfer

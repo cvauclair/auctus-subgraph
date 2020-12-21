@@ -1,0 +1,71 @@
+# ================================================================
+# Event-like entities (i.e.: tracked over time)
+# ================================================================
+type Trade @entity {
+  id: ID! # 
+
+  blockNumber: BigInt!
+  timestamp: BigInt!
+
+  amount: BigInt!   # Quantity of ACOToken bought or sold
+  premium: BigInt!  # Premium paid (denominated in baseAsset)
+  baseAsset: Asset! # Base Asset used to buy the option
+
+  acoToken: ACOToken! @derivedFrom(field: "trades")
+}
+
+# ================================================================
+# Assets and options
+# ================================================================
+type Asset @entity {
+  id: ID! # id is token address, with 0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee for ETH
+  symbol: String!
+  name: String!
+  decimals: Int!
+
+  options: [ACOToken]! @derivedFrom(field: "underlying")
+}
+
+enum OptionState {
+  Inactive
+  Active
+  Exercised
+  Expired
+}
+
+enum OptionType {
+  PUT
+  CALL
+}
+
+type ACOToken @entity {
+  id: ID! # Option token address
+
+  underlying: Asset!
+  strikeAsset: Asset!
+
+  decimals: Int!
+
+  creationBlock: BigInt!
+  creationTimestamp: BigInt!
+
+  strike: BigInt!
+  expiration: BigInt!
+  type: OptionType!
+
+  numTrades: BigInt!
+  trades: [Trade]!
+  latestTrade: Trade
+}
+
+type ACOFactory @entity {
+  id: ID! # Address is ID
+
+  numOptions: BigInt!
+  options: [ACOToken]!
+
+  numAssets: BigInt!
+  assets: [Asset]!
+
+  totalTradeVolume: BigInt!
+}

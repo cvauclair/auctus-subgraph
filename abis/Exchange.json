@@ -1,0 +1,103 @@
+{
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "makerAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "feeRecipientAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "makerAssetData",
+          "type": "bytes"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "takerAssetData",
+          "type": "bytes"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "makerFeeAssetData",
+          "type": "bytes"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "takerFeeAssetData",
+          "type": "bytes"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "orderHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "takerAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "senderAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "makerAssetFilledAmount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "takerAssetFilledAmount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "makerFeePaid",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "takerFeePaid",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "protocolFeePaid",
+          "type": "uint256"
+        }
+      ],
+      "name": "Fill",
+      "type": "event"
+    }
+  ],
+  "contractName": "Exchange",
+  "offset": [
+    25,
+    1389
+  ],
+  "sha1": "533865b9a4828981d8b9368d1a07084f62ff6e41",
+  "source": "pragma solidity ^0.7.0;\n\ninterface Exchange {\n  // Fill event is emitted whenever an order is filled.\n  event Fill(\n    address indexed makerAddress,         // Address that created the order.\n    address indexed feeRecipientAddress,  // Address that received fees.\n    bytes makerAssetData,                 // Encoded data specific to makerAsset.\n    bytes takerAssetData,                 // Encoded data specific to takerAsset.\n    bytes makerFeeAssetData,              // Encoded data specific to makerFeeAsset.\n    bytes takerFeeAssetData,              // Encoded data specific to takerFeeAsset.\n    bytes32 indexed orderHash,            // EIP712 hash of order (see LibOrder.getTypedDataHash).\n    address takerAddress,                 // Address that filled the order.\n    address senderAddress,                // Address that called the Exchange contract (msg.sender).\n    uint256 makerAssetFilledAmount,       // Amount of makerAsset sold by maker and bought by taker.\n    uint256 takerAssetFilledAmount,       // Amount of takerAsset sold by taker and bought by maker.\n    uint256 makerFeePaid,                 // Amount of makerFeeAssetData paid to feeRecipient by maker.\n    uint256 takerFeePaid,                 // Amount of takerFeeAssetData paid to feeRecipient by taker.\n    uint256 protocolFeePaid               // Amount of eth or weth paid to the staking contract.\n  );\n}",
+  "type": "interface"
+}
