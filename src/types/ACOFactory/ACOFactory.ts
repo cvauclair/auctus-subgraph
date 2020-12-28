@@ -57,6 +57,52 @@ export class NewAcoToken__Params {
   }
 }
 
+export class NewAcoTokenData extends EthereumEvent {
+  get params(): NewAcoTokenData__Params {
+    return new NewAcoTokenData__Params(this);
+  }
+}
+
+export class NewAcoTokenData__Params {
+  _event: NewAcoTokenData;
+
+  constructor(event: NewAcoTokenData) {
+    this._event = event;
+  }
+
+  get underlying(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get strikeAsset(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get isCall(): boolean {
+    return this._event.parameters[2].value.toBoolean();
+  }
+
+  get strikePrice(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+
+  get expiryTime(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
+  }
+
+  get acoToken(): Address {
+    return this._event.parameters[5].value.toAddress();
+  }
+
+  get acoTokenImplementation(): Address {
+    return this._event.parameters[6].value.toAddress();
+  }
+
+  get creator(): Address {
+    return this._event.parameters[7].value.toAddress();
+  }
+}
+
 export class ACOFactory extends SmartContract {
   static bind(address: Address): ACOFactory {
     return new ACOFactory("ACOFactory", address);

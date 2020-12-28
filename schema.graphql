@@ -23,7 +23,7 @@ type Asset @entity {
   name: String!
   decimals: Int!
 
-  options: [ACOToken]! @derivedFrom(field: "underlying")
+  options: [ACOToken!]! @derivedFrom(field: "underlying")
 }
 
 enum OptionState {
@@ -54,7 +54,7 @@ type ACOToken @entity {
   type: OptionType!
 
   numTrades: BigInt!
-  trades: [Trade]!
+  trades: [Trade!]!
   latestTrade: Trade
 }
 
@@ -62,10 +62,10 @@ type ACOFactory @entity {
   id: ID! # Address is ID
 
   numOptions: BigInt!
-  options: [ACOToken]!
+  options: [ACOToken!]!
 
   numAssets: BigInt!
-  assets: [Asset]!
+  assets: [Asset!]!
 
   totalTradeVolume: BigInt!
 }

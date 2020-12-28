@@ -154,12 +154,12 @@ export class Asset extends Entity {
     this.set("decimals", Value.fromI32(value));
   }
 
-  get options(): Array<string | null> {
+  get options(): Array<string> {
     let value = this.get("options");
     return value.toStringArray();
   }
 
-  set options(value: Array<string | null>) {
+  set options(value: Array<string>) {
     this.set("options", Value.fromStringArray(value));
   }
 }
@@ -275,12 +275,12 @@ export class ACOToken extends Entity {
     this.set("numTrades", Value.fromBigInt(value));
   }
 
-  get trades(): Array<string | null> {
+  get trades(): Array<string> {
     let value = this.get("trades");
     return value.toStringArray();
   }
 
-  set trades(value: Array<string | null>) {
+  set trades(value: Array<string>) {
     this.set("trades", Value.fromStringArray(value));
   }
 
@@ -341,12 +341,12 @@ export class ACOFactory extends Entity {
     this.set("numOptions", Value.fromBigInt(value));
   }
 
-  get options(): Array<string | null> {
+  get options(): Array<string> {
     let value = this.get("options");
     return value.toStringArray();
   }
 
-  set options(value: Array<string | null>) {
+  set options(value: Array<string>) {
     this.set("options", Value.fromStringArray(value));
   }
 
@@ -359,12 +359,12 @@ export class ACOFactory extends Entity {
     this.set("numAssets", Value.fromBigInt(value));
   }
 
-  get assets(): Array<string | null> {
+  get assets(): Array<string> {
     let value = this.get("assets");
     return value.toStringArray();
   }
 
-  set assets(value: Array<string | null>) {
+  set assets(value: Array<string>) {
     this.set("assets", Value.fromStringArray(value));
   }
 

@@ -29,6 +29,8 @@ dataSources:
       eventHandlers:
         - event: NewAcoToken(indexed address,indexed address,indexed bool,uint256,uint256,address,address)
           handler: handleNewAcoToken
+        - event: NewAcoTokenData(indexed address,indexed address,indexed bool,uint256,uint256,address,address,address)
+          handler: handleNewAcoTokenData
   - kind: ethereum/contract
     name: Exchange
     network: mainnet
