@@ -32,6 +32,31 @@ dataSources:
         - event: NewAcoTokenData(indexed address,indexed address,indexed bool,uint256,uint256,address,address,address)
           handler: handleNewAcoTokenData
   - kind: ethereum/contract
+    name: ACOPoolFactory
+    network: mainnet
+    source:
+      address: '0xe28520ddb1b419ac37ecdbb2c0f97c8cf079ccc3'
+      abi: ACOPoolFactory
+      startBlock: 11511139
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      file: ./src/mappings/ACOPoolFactory.ts
+      entities:
+        - ACOPoolFactory
+        - ACOToken
+      abis:
+        - name: ACOPoolFactory
+          file: ./abis/ACOPoolFactory.json
+        - name: ACOToken
+          file: ./abis/ACOToken.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: NewAcoPool(indexed address,indexed address,indexed bool,address,address)
+          handler: handleNewAcoPool
+  - kind: ethereum/contract
     name: Exchange
     network: mainnet
     source:
@@ -74,6 +99,28 @@ templates:
       # eventHandlers:
         # - event: Transfer(indexed address,indexed address,uint256)
         #   handler: handleTransfer
+  - kind: ethereum/contract
+    name: ACOPool
+    network: mainnet
+    source:
+      abi: ACOPool
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      file: ./src/mappings/ACOPool.ts
+      entities:
+        - ACOPool
+      abis:
+        - name: ACOPool
+          file: ./abis/ACOPool.json
+      eventHandlers:
+        - event: Deposit(indexed address,uint256,uint256)
+          handler: handleDeposit
+        - event: Withdraw(indexed address,uint256,bool,uint256,uint256,address[],uint256[])
+          handler: handleWithdraw
+        - event: Swap(indexed address,indexed address,uint256,uint256,uint256,uint256,uint256)
+          handler: handleSwap
   - kind: ethereum/contract
     name: ERC20
     network: mainnet

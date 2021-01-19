@@ -8,6 +8,12 @@ export class ACOToken extends DataSourceTemplate {
   }
 }
 
+export class ACOPool extends DataSourceTemplate {
+  static create(address: Address): void {
+    DataSourceTemplate.create("ACOPool", [address.toHex()]);
+  }
+}
+
 export class ERC20 extends DataSourceTemplate {
   static create(address: Address): void {
     DataSourceTemplate.create("ERC20", [address.toHex()]);

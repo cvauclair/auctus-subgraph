@@ -1,0 +1,49 @@
+{
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "underlying",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "strikeAsset",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bool",
+          "name": "isCall",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "acoPool",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "acoPoolImplementation",
+          "type": "address"
+        }
+      ],
+      "name": "NewAcoPool",
+      "type": "event"
+    }
+  ],
+  "contractName": "ACOPoolFactory",
+  "offset": [
+    25,
+    199
+  ],
+  "sha1": "c88c9a689bab856caab29c7c5b3c91ea6ec816d7",
+  "source": "pragma solidity ^0.7.0;\n\ninterface ACOPoolFactory {\n  event NewAcoPool(address indexed underlying, address indexed strikeAsset, bool indexed isCall, address acoPool, address acoPoolImplementation);\n}",
+  "type": "interface"
+}

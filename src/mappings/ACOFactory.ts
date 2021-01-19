@@ -35,11 +35,7 @@ export function handleNewAcoToken(event: NewAcoToken): void {
   acoToken.strike = event.params.strikePrice
   acoToken.expiration = event.params.expiryTime
 
-  if (event.params.isCall) {
-    acoToken.type = "CALL"
-  } else {
-    acoToken.type = "PUT"
-  }
+  acoToken.type = event.params.isCall ? "CALL" : "PUT"
   
   // Get underlying asset
   let underlyingAddr = event.params.underlying.toHexString().toString()

@@ -2,7 +2,7 @@
 # Event-like entities (i.e.: tracked over time)
 # ================================================================
 type Trade @entity {
-  id: ID! # 
+  id: ID! # id is ACO_TOKEN_ADDR-TRADE_INDEX
 
   blockNumber: BigInt!
   timestamp: BigInt!
@@ -12,6 +12,34 @@ type Trade @entity {
   baseAsset: Asset! # Base Asset used to buy the option
 
   acoToken: ACOToken! @derivedFrom(field: "trades")
+  acoPool: ACOPool @derivedFrom(field: "trades")    # Only set if trade was made with pool
+}
+
+type PoolDeposit @entity {
+  id: ID! # id is POOL_ADDR-DEPOSIT_INDEX
+
+  blockNumber: BigInt!
+  timestamp: BigInt!
+
+  account: String!            # Address of depositor
+  shares: BigInt!             # Amount of pool shares minted
+  collateralAmount: BigInt!   # Amount of collateral deposited
+
+  pool: ACOPool! @derivedFrom(field: "deposits")
+}
+
+type PoolWithdraw @entity {
+  id: ID! # id is POOL_ADDR-WITHDRAW_INDEX
+
+  blockNumber: BigInt!
+  timestamp: BigInt!
+
+  account: String!            # Address of withdrawer
+  shares: BigInt!             # Amount of pool shares burned
+  underlyingAmount: BigInt!   # Amount of underlying withdrawn
+  strikeAssetAmount: BigInt!  # Amount of strike asset withdrawn (i.e.: collected premiums)
+
+  pool: ACOPool! @derivedFrom(field: "withdraws")
 }
 
 # ================================================================
@@ -26,20 +54,33 @@ type Asset @entity {
   options: [ACOToken!]! @derivedFrom(field: "underlying")
 }
 
-enum OptionState {
-  Inactive
-  Active
-  Exercised
-  Expired
-}
-
 enum OptionType {
   PUT
   CALL
 }
 
+type ACOPool @entity {
+  id: ID! # id is pool implementation address
+
+  underlying: Asset!
+  strikeAsset: Asset!
+  type: OptionType!
+
+  numDeposits: BigInt!
+  deposits: [PoolDeposit!]!
+  latestDeposit: PoolDeposit
+
+  numWithdraws: BigInt!
+  withdraws: [PoolWithdraw!]!
+  latestWithdraw: PoolWithdraw
+
+  numTrades: BigInt!
+  trades: [Trade!]!
+  latestTrade: Trade
+}
+
 type ACOToken @entity {
-  id: ID! # Option token address
+  id: ID! # id is ACO token address
 
   underlying: Asset!
   strikeAsset: Asset!
@@ -59,7 +100,7 @@ type ACOToken @entity {
 }
 
 type ACOFactory @entity {
-  id: ID! # Address is ID
+  id: ID! # id is factory proxy contract address
 
   numOptions: BigInt!
   options: [ACOToken!]!

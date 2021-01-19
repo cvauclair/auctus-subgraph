@@ -95,6 +95,202 @@ export class Trade extends Entity {
   set acoToken(value: string) {
     this.set("acoToken", Value.fromString(value));
   }
+
+  get acoPool(): string | null {
+    let value = this.get("acoPool");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set acoPool(value: string | null) {
+    if (value === null) {
+      this.unset("acoPool");
+    } else {
+      this.set("acoPool", Value.fromString(value as string));
+    }
+  }
+}
+
+export class PoolDeposit extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save PoolDeposit entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save PoolDeposit entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("PoolDeposit", id.toString(), this);
+  }
+
+  static load(id: string): PoolDeposit | null {
+    return store.get("PoolDeposit", id) as PoolDeposit | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get blockNumber(): BigInt {
+    let value = this.get("blockNumber");
+    return value.toBigInt();
+  }
+
+  set blockNumber(value: BigInt) {
+    this.set("blockNumber", Value.fromBigInt(value));
+  }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
+  }
+
+  get account(): string {
+    let value = this.get("account");
+    return value.toString();
+  }
+
+  set account(value: string) {
+    this.set("account", Value.fromString(value));
+  }
+
+  get shares(): BigInt {
+    let value = this.get("shares");
+    return value.toBigInt();
+  }
+
+  set shares(value: BigInt) {
+    this.set("shares", Value.fromBigInt(value));
+  }
+
+  get collateralAmount(): BigInt {
+    let value = this.get("collateralAmount");
+    return value.toBigInt();
+  }
+
+  set collateralAmount(value: BigInt) {
+    this.set("collateralAmount", Value.fromBigInt(value));
+  }
+
+  get pool(): string {
+    let value = this.get("pool");
+    return value.toString();
+  }
+
+  set pool(value: string) {
+    this.set("pool", Value.fromString(value));
+  }
+}
+
+export class PoolWithdraw extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save PoolWithdraw entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save PoolWithdraw entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("PoolWithdraw", id.toString(), this);
+  }
+
+  static load(id: string): PoolWithdraw | null {
+    return store.get("PoolWithdraw", id) as PoolWithdraw | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get blockNumber(): BigInt {
+    let value = this.get("blockNumber");
+    return value.toBigInt();
+  }
+
+  set blockNumber(value: BigInt) {
+    this.set("blockNumber", Value.fromBigInt(value));
+  }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
+  }
+
+  get account(): string {
+    let value = this.get("account");
+    return value.toString();
+  }
+
+  set account(value: string) {
+    this.set("account", Value.fromString(value));
+  }
+
+  get shares(): BigInt {
+    let value = this.get("shares");
+    return value.toBigInt();
+  }
+
+  set shares(value: BigInt) {
+    this.set("shares", Value.fromBigInt(value));
+  }
+
+  get underlyingAmount(): BigInt {
+    let value = this.get("underlyingAmount");
+    return value.toBigInt();
+  }
+
+  set underlyingAmount(value: BigInt) {
+    this.set("underlyingAmount", Value.fromBigInt(value));
+  }
+
+  get strikeAssetAmount(): BigInt {
+    let value = this.get("strikeAssetAmount");
+    return value.toBigInt();
+  }
+
+  set strikeAssetAmount(value: BigInt) {
+    this.set("strikeAssetAmount", Value.fromBigInt(value));
+  }
+
+  get pool(): string {
+    let value = this.get("pool");
+    return value.toString();
+  }
+
+  set pool(value: string) {
+    this.set("pool", Value.fromString(value));
+  }
 }
 
 export class Asset extends Entity {
@@ -161,6 +357,169 @@ export class Asset extends Entity {
 
   set options(value: Array<string>) {
     this.set("options", Value.fromStringArray(value));
+  }
+}
+
+export class ACOPool extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save ACOPool entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save ACOPool entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("ACOPool", id.toString(), this);
+  }
+
+  static load(id: string): ACOPool | null {
+    return store.get("ACOPool", id) as ACOPool | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get underlying(): string {
+    let value = this.get("underlying");
+    return value.toString();
+  }
+
+  set underlying(value: string) {
+    this.set("underlying", Value.fromString(value));
+  }
+
+  get strikeAsset(): string {
+    let value = this.get("strikeAsset");
+    return value.toString();
+  }
+
+  set strikeAsset(value: string) {
+    this.set("strikeAsset", Value.fromString(value));
+  }
+
+  get type(): string {
+    let value = this.get("type");
+    return value.toString();
+  }
+
+  set type(value: string) {
+    this.set("type", Value.fromString(value));
+  }
+
+  get numDeposits(): BigInt {
+    let value = this.get("numDeposits");
+    return value.toBigInt();
+  }
+
+  set numDeposits(value: BigInt) {
+    this.set("numDeposits", Value.fromBigInt(value));
+  }
+
+  get deposits(): Array<string> {
+    let value = this.get("deposits");
+    return value.toStringArray();
+  }
+
+  set deposits(value: Array<string>) {
+    this.set("deposits", Value.fromStringArray(value));
+  }
+
+  get latestDeposit(): string | null {
+    let value = this.get("latestDeposit");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set latestDeposit(value: string | null) {
+    if (value === null) {
+      this.unset("latestDeposit");
+    } else {
+      this.set("latestDeposit", Value.fromString(value as string));
+    }
+  }
+
+  get numWithdraws(): BigInt {
+    let value = this.get("numWithdraws");
+    return value.toBigInt();
+  }
+
+  set numWithdraws(value: BigInt) {
+    this.set("numWithdraws", Value.fromBigInt(value));
+  }
+
+  get withdraws(): Array<string> {
+    let value = this.get("withdraws");
+    return value.toStringArray();
+  }
+
+  set withdraws(value: Array<string>) {
+    this.set("withdraws", Value.fromStringArray(value));
+  }
+
+  get latestWithdraw(): string | null {
+    let value = this.get("latestWithdraw");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set latestWithdraw(value: string | null) {
+    if (value === null) {
+      this.unset("latestWithdraw");
+    } else {
+      this.set("latestWithdraw", Value.fromString(value as string));
+    }
+  }
+
+  get numTrades(): BigInt {
+    let value = this.get("numTrades");
+    return value.toBigInt();
+  }
+
+  set numTrades(value: BigInt) {
+    this.set("numTrades", Value.fromBigInt(value));
+  }
+
+  get trades(): Array<string> {
+    let value = this.get("trades");
+    return value.toStringArray();
+  }
+
+  set trades(value: Array<string>) {
+    this.set("trades", Value.fromStringArray(value));
+  }
+
+  get latestTrade(): string | null {
+    let value = this.get("latestTrade");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set latestTrade(value: string | null) {
+    if (value === null) {
+      this.unset("latestTrade");
+    } else {
+      this.set("latestTrade", Value.fromString(value as string));
+    }
   }
 }
 
